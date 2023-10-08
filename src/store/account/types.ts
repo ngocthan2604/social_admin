@@ -12,3 +12,4 @@ export interface AccountState {
     error: string | null;
     token: string | null;
 }
+

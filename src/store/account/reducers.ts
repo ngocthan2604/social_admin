@@ -1,3 +1,4 @@
+import { loginAsync, logoutAsync } from "./actions";
 import {AccountState } from "./types"
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -11,24 +12,32 @@ const initialState: AccountState = {
 const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {
-    loginRequest: (state) => {
-      state.loading = true;
-    },
-    loginSuccess: (state, action: PayloadAction<{ token: string }>) => {
-      state.loading = false;
-      state.token = action.payload.token;
-    },
-    loginFailure: (state, action: PayloadAction<{ error: string }>) => {
-      state.loading = false;
-      state.error = action.payload.error;
-    },
-    logout: (state) => {
-      state.user = null;
-      state.error = null;
-    },
+  reducers: {},
+  extraReducers:(builder)=> {
+    builder
+      .addCase(loginAsync.pending,(state)=>{
+        state.loading = true;
+      })
+      .addCase(loginAsync.fulfilled,(state,action:PayloadAction<any>)=>{
+        state.loading = false;
+        state.token = action.payload.token;
+        state.error = action.payload.message;
+      })
+      .addCase(loginAsync.rejected,(state,action:PayloadAction<any>)=>{
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(logoutAsync.pending,(state)=>{
+        state.loading = true;
+      })
+      .addCase(logoutAsync.fulfilled,(state)=>{
+        state.loading = false;
+        state.token = null;
+      })
+      .addCase(logoutAsync.rejected,(state)=>{
+        state.loading = false;
+      })
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout } = accountSlice.actions;
 export default accountSlice.reducer;

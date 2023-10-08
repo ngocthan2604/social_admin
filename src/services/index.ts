@@ -1,6 +1,1 @@
-function service(){
-    return(
-        console.log("a")
-    )
-}
-export default service
+export * from './user.service'
