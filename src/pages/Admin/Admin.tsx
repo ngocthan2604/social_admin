@@ -1,6 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import './Admin.css'
+import { useDispatch } from "react-redux";
+import { logoutAsync } from "../../store/account/actions";
 
 function Admin(){
+  const [userInfor,setUserInfor] = useState(false);
+  const dispatch = useDispatch();
+
     return (
       <Fragment>
         {/* Sidebar */}
@@ -447,13 +453,15 @@ function Admin(){
                       Douglas McGee
                     </span>
                     <img
+                      onClick={()=>setUserInfor(!userInfor)}
                       className="img-profile rounded-circle"
-                      src="img/undraw_profile.svg"
+                      src="https://salt.tikicdn.com/cache/w1200/ts/product/9a/43/28/d88544b30d973107ba5c25b4ad12c6d8.jpg"
+                      alt="..."
                     />
                   </a>
                   {/* Dropdown - User Information */}
                   <div
-                    className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    className={`${userInfor && "user-infor-custom"} dropdown-menu dropdown-menu-right shadow animated--grow-in`}
                     aria-labelledby="userDropdown"
                   >
                     <a className="dropdown-item" href="#">
@@ -474,6 +482,10 @@ function Admin(){
                       href="#"
                       data-toggle="modal"
                       data-target="#logoutModal"
+                      onClick={()=>{
+                        // setUserInfor(false)
+                        dispatch(logoutAsync() as any)
+                      }}
                     >
                       <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
                       Logout

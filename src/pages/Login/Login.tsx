@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loginAsync, logoutAsync } from "../../store/account/actions";
 import './Login.css'
+import { Link } from "react-router-dom";
 
 function Login(){
   const [inputs,setInputs] = useState({
@@ -160,9 +161,9 @@ function Login(){
                         </a>
                       </div>
                       <div className="text-center">
-                        <a className="small" href="register.html">
+                        <Link className="small" to="/register">
                           Create an Account!
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

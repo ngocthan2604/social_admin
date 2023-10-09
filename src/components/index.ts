@@ -1,1 +1,3 @@
-export {default as PrivateRoute}  from './PrivateRoute/PrivateRoute'
+console.log('component')
+
+export {}

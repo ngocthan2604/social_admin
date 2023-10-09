@@ -6,7 +6,7 @@ const initialState: AccountState = {
   user: null,
   loading: false,
   error: null,
-  token: null,
+  token: sessionStorage.getItem('user') || null,
 };
 
 const accountSlice = createSlice({
