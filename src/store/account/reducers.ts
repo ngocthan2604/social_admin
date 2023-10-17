@@ -1,4 +1,4 @@
-import { loginAsync, logoutAsync } from "./actions";
+import { currentUserAsync, loginAsync, logoutAsync, registerAsync } from "./actions";
 import {AccountState } from "./types"
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -27,6 +27,16 @@ const accountSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+      .addCase(registerAsync.pending,(state)=>{
+        state.loading = true;
+      })
+      .addCase(registerAsync.fulfilled,(state,action:PayloadAction<any>)=>{
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(registerAsync.rejected,(state)=>{
+        state.loading = false;
+      })
       .addCase(logoutAsync.pending,(state)=>{
         state.loading = true;
       })
@@ -36,6 +46,13 @@ const accountSlice = createSlice({
       })
       .addCase(logoutAsync.rejected,(state)=>{
         state.loading = false;
+      })
+      .addCase(currentUserAsync.fulfilled,(state,action:PayloadAction<any>)=>{
+        state.user = action.payload;
+        state.error = action.payload.message;
+      })
+      .addCase(currentUserAsync.rejected,(state,action:PayloadAction<any>)=>{
+        state.error = action.payload.message;
       })
   },
 });

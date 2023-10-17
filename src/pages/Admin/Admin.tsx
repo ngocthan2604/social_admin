@@ -1,11 +1,18 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import './Admin.css'
 import { useDispatch } from "react-redux";
-import { logoutAsync } from "../../store/account/actions";
+import { currentUserAsync, logoutAsync } from "../../store/account/actions";
+import { useSelector } from "react-redux";
+import { AppState } from "../../store";
 
 function Admin(){
   const [userInfor,setUserInfor] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector((state:AppState)=>state.account.user)
+
+  useEffect(() => {
+    dispatch(currentUserAsync() as any);
+  }, []);
 
     return (
       <Fragment>
@@ -450,7 +457,7 @@ function Admin(){
                     aria-expanded="false"
                   >
                     <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                      Douglas McGee
+                      {user && (`${user.first_name} ${user.last_name}`)}
                     </span>
                     <img
                       onClick={()=>setUserInfor(!userInfor)}
