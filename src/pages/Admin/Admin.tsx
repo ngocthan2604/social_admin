@@ -4,11 +4,20 @@ import { useDispatch } from "react-redux";
 import { currentUserAsync, logoutAsync } from "../../store/account/actions";
 import { useSelector } from "react-redux";
 import { AppState } from "../../store";
+import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md'
+import { useLocation } from "react-router-dom";
 
 function Admin(){
   const [userInfor,setUserInfor] = useState(false);
+  const [users,setUsers] = useState(false);
+  const [ultils,setUtils] = useState(false);
+  const [pages,setPages] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state:AppState)=>state.account.user)
+
+  const location = useLocation();
+  const currentPath = location.pathname;
+  console.log(currentPath);
 
   useEffect(() => {
     dispatch(currentUserAsync() as any);
@@ -38,8 +47,8 @@ function Admin(){
           {/* Nav Item - Dashboard */}
           <li className="nav-item active">
             <a className="nav-link" href="index.html">
-              <i className="fas fa-fw fa-tachometer-alt" />
               <span>Dashboard</span>
+              <i className="fas fa-fw fa-tachometer-alt" />
             </a>
           </li>
           {/* Divider */}
@@ -49,19 +58,24 @@ function Admin(){
           {/* Nav Item - Pages Collapse Menu */}
           <li className="nav-item">
             <a
-              className="nav-link collapsed"
+              className={`nav-link${!users ? ' collapsed':''}`}
               href="#"
               data-toggle="collapse"
               data-target="#collapseTwo"
-              aria-expanded="true"
+              aria-expanded={users ? 'true' : 'false'}
               aria-controls="collapseTwo"
+              onClick={()=>{
+                setUsers(!users)
+                setPages(false)
+                setUtils(false)
+              }}
             >
-              <i className="fas fa-fw fa-cog" />
               <span>Components</span>
+              <i className="arrow"><MdOutlineKeyboardDoubleArrowRight/></i>
             </a>
             <div
               id="collapseTwo"
-              className="collapse"
+              className={`collapse${users ? ' show': ''}`}
               aria-labelledby="headingTwo"
               data-parent="#accordionSidebar"
             >
@@ -79,19 +93,24 @@ function Admin(){
           {/* Nav Item - Utilities Collapse Menu */}
           <li className="nav-item">
             <a
-              className="nav-link collapsed"
+              className={`nav-link${!ultils ? ' collapsed':''}`}
               href="#"
               data-toggle="collapse"
               data-target="#collapseUtilities"
-              aria-expanded="true"
+              aria-expanded={ultils ? 'true' : 'false'}
               aria-controls="collapseUtilities"
+              onClick={()=>{
+                setUsers(false)
+                setPages(false)
+                setUtils(!ultils)
+              }}
             >
-              <i className="fas fa-fw fa-wrench" />
               <span>Utilities</span>
+              <i className="arrow"><MdOutlineKeyboardDoubleArrowRight/></i>
             </a>
             <div
               id="collapseUtilities"
-              className="collapse"
+              className={`collapse${ultils ? ' show': ''}`}
               aria-labelledby="headingUtilities"
               data-parent="#accordionSidebar"
             >
@@ -119,19 +138,24 @@ function Admin(){
           {/* Nav Item - Pages Collapse Menu */}
           <li className="nav-item">
             <a
-              className="nav-link collapsed"
+              className={`nav-link${!pages ? ' collapsed':''}`}
               href="#"
               data-toggle="collapse"
               data-target="#collapsePages"
-              aria-expanded="true"
+              aria-expanded={pages ? 'true' : 'false'}
               aria-controls="collapsePages"
+              onClick={()=>{
+                setUsers(false)
+                setPages(!pages)
+                setUtils(false)
+              }}
             >
-              <i className="fas fa-fw fa-folder" />
               <span>Pages</span>
+              <i className="arrow"><MdOutlineKeyboardDoubleArrowRight/></i>
             </a>
             <div
               id="collapsePages"
-              className="collapse"
+              className={`collapse${pages ? ' show': ''}`}
               aria-labelledby="headingPages"
               data-parent="#accordionSidebar"
             >
@@ -160,15 +184,15 @@ function Admin(){
           {/* Nav Item - Charts */}
           <li className="nav-item">
             <a className="nav-link" href="charts.html">
-              <i className="fas fa-fw fa-chart-area" />
               <span>Charts</span>
+              <i className="fas fa-fw fa-chart-area" />
             </a>
           </li>
           {/* Nav Item - Tables */}
           <li className="nav-item">
             <a className="nav-link" href="tables.html">
-              <i className="fas fa-fw fa-table" />
               <span>Tables</span>
+              <i className="fas fa-fw fa-table" />
             </a>
           </li>
           {/* Divider */}
@@ -515,216 +539,216 @@ function Admin(){
                   Report
                 </a>
               </div>
-              {/* Content Row */}
-              <div className="row">
-                {/* Earnings (Monthly) Card Example */}
-                <div className="col-xl-3 col-md-6 mb-4">
-                  <div className="card border-left-primary shadow h-100 py-2">
-                    <div className="card-body">
-                      <div className="row no-gutters align-items-center">
-                        <div className="col mr-2">
-                          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Earnings (Monthly)
-                          </div>
-                          <div className="h5 mb-0 font-weight-bold text-gray-800">
-                            $40,000
-                          </div>
-                        </div>
-                        <div className="col-auto">
-                          <i className="fas fa-calendar fa-2x text-gray-300" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Earnings (Monthly) Card Example */}
-                <div className="col-xl-3 col-md-6 mb-4">
-                  <div className="card border-left-success shadow h-100 py-2">
-                    <div className="card-body">
-                      <div className="row no-gutters align-items-center">
-                        <div className="col mr-2">
-                          <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Earnings (Annual)
-                          </div>
-                          <div className="h5 mb-0 font-weight-bold text-gray-800">
-                            $215,000
-                          </div>
-                        </div>
-                        <div className="col-auto">
-                          <i className="fas fa-dollar-sign fa-2x text-gray-300" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Earnings (Monthly) Card Example */}
-                <div className="col-xl-3 col-md-6 mb-4">
-                  <div className="card border-left-info shadow h-100 py-2">
-                    <div className="card-body">
-                      <div className="row no-gutters align-items-center">
-                        <div className="col mr-2">
-                          <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Tasks
-                          </div>
-                          <div className="row no-gutters align-items-center">
-                            <div className="col-auto">
-                              <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                50%
-                              </div>
+                {/* Content Row */}
+                <div className="row">
+                  {/* Earnings (Monthly) Card Example */}
+                  <div className="col-xl-3 col-md-6 mb-4">
+                    <div className="card border-left-primary shadow h-100 py-2">
+                      <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                          <div className="col mr-2">
+                            <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                              Earnings (Monthly)
                             </div>
-                            <div className="col">
-                              <div className="progress progress-sm mr-2">
-                                <div
-                                  className="progress-bar bg-info"
-                                  role="progressbar"
-                                  style={{ width: "50%" }}
-                                  aria-valuenow={50}
-                                  aria-valuemin={0}
-                                  aria-valuemax={100}
-                                />
-                              </div>
+                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                              $40,000
                             </div>
                           </div>
+                          <div className="col-auto">
+                            <i className="fas fa-calendar fa-2x text-gray-300" />
+                          </div>
                         </div>
-                        <div className="col-auto">
-                          <i className="fas fa-clipboard-list fa-2x text-gray-300" />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Earnings (Monthly) Card Example */}
+                  <div className="col-xl-3 col-md-6 mb-4">
+                    <div className="card border-left-success shadow h-100 py-2">
+                      <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                          <div className="col mr-2">
+                            <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
+                              Earnings (Annual)
+                            </div>
+                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                              $215,000
+                            </div>
+                          </div>
+                          <div className="col-auto">
+                            <i className="fas fa-dollar-sign fa-2x text-gray-300" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Earnings (Monthly) Card Example */}
+                  <div className="col-xl-3 col-md-6 mb-4">
+                    <div className="card border-left-info shadow h-100 py-2">
+                      <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                          <div className="col mr-2">
+                            <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
+                              Tasks
+                            </div>
+                            <div className="row no-gutters align-items-center">
+                              <div className="col-auto">
+                                <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                  50%
+                                </div>
+                              </div>
+                              <div className="col">
+                                <div className="progress progress-sm mr-2">
+                                  <div
+                                    className="progress-bar bg-info"
+                                    role="progressbar"
+                                    style={{ width: "50%" }}
+                                    aria-valuenow={50}
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-auto">
+                            <i className="fas fa-clipboard-list fa-2x text-gray-300" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Pending Requests Card Example */}
+                  <div className="col-xl-3 col-md-6 mb-4">
+                    <div className="card border-left-warning shadow h-100 py-2">
+                      <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                          <div className="col mr-2">
+                            <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                              Pending Requests
+                            </div>
+                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                              18
+                            </div>
+                          </div>
+                          <div className="col-auto">
+                            <i className="fas fa-comments fa-2x text-gray-300" />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* Pending Requests Card Example */}
-                <div className="col-xl-3 col-md-6 mb-4">
-                  <div className="card border-left-warning shadow h-100 py-2">
-                    <div className="card-body">
-                      <div className="row no-gutters align-items-center">
-                        <div className="col mr-2">
-                          <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Pending Requests
-                          </div>
-                          <div className="h5 mb-0 font-weight-bold text-gray-800">
-                            18
+                {/* Content Row */}
+                <div className="row">
+                  {/* Area Chart */}
+                  <div className="col-xl-8 col-lg-7">
+                    <div className="card shadow mb-4">
+                      {/* Card Header - Dropdown */}
+                      <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">
+                          Earnings Overview
+                        </h6>
+                        <div className="dropdown no-arrow">
+                          <a
+                            className="dropdown-toggle"
+                            href="#"
+                            role="button"
+                            id="dropdownMenuLink"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" />
+                          </a>
+                          <div
+                            className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink"
+                          >
+                            <div className="dropdown-header">
+                              Dropdown Header:
+                            </div>
+                            <a className="dropdown-item" href="#">
+                              Action
+                            </a>
+                            <a className="dropdown-item" href="#">
+                              Another action
+                            </a>
+                            <div className="dropdown-divider" />
+                            <a className="dropdown-item" href="#">
+                              Something else here
+                            </a>
                           </div>
                         </div>
-                        <div className="col-auto">
-                          <i className="fas fa-comments fa-2x text-gray-300" />
+                      </div>
+                      {/* Card Body */}
+                      <div className="card-body">
+                        <div className="chart-area">
+                          <canvas id="myAreaChart" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Pie Chart */}
+                  <div className="col-xl-4 col-lg-5">
+                    <div className="card shadow mb-4">
+                      {/* Card Header - Dropdown */}
+                      <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">
+                          Revenue Sources
+                        </h6>
+                        <div className="dropdown no-arrow">
+                          <a
+                            className="dropdown-toggle"
+                            href="#"
+                            role="button"
+                            id="dropdownMenuLink"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" />
+                          </a>
+                          <div
+                            className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink"
+                          >
+                            <div className="dropdown-header">
+                              Dropdown Header:
+                            </div>
+                            <a className="dropdown-item" href="#">
+                              Action
+                            </a>
+                            <a className="dropdown-item" href="#">
+                              Another action
+                            </a>
+                            <div className="dropdown-divider" />
+                            <a className="dropdown-item" href="#">
+                              Something else here
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Card Body */}
+                      <div className="card-body">
+                        <div className="chart-pie pt-4 pb-2">
+                          <canvas id="myPieChart" />
+                        </div>
+                        <div className="mt-4 text-center small">
+                          <span className="mr-2">
+                            <i className="fas fa-circle text-primary" /> Direct
+                          </span>
+                          <span className="mr-2">
+                            <i className="fas fa-circle text-success" /> Social
+                          </span>
+                          <span className="mr-2">
+                            <i className="fas fa-circle text-info" /> Referral
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Content Row */}
-              <div className="row">
-                {/* Area Chart */}
-                <div className="col-xl-8 col-lg-7">
-                  <div className="card shadow mb-4">
-                    {/* Card Header - Dropdown */}
-                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 className="m-0 font-weight-bold text-primary">
-                        Earnings Overview
-                      </h6>
-                      <div className="dropdown no-arrow">
-                        <a
-                          className="dropdown-toggle"
-                          href="#"
-                          role="button"
-                          id="dropdownMenuLink"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" />
-                        </a>
-                        <div
-                          className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                          aria-labelledby="dropdownMenuLink"
-                        >
-                          <div className="dropdown-header">
-                            Dropdown Header:
-                          </div>
-                          <a className="dropdown-item" href="#">
-                            Action
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            Another action
-                          </a>
-                          <div className="dropdown-divider" />
-                          <a className="dropdown-item" href="#">
-                            Something else here
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Card Body */}
-                    <div className="card-body">
-                      <div className="chart-area">
-                        <canvas id="myAreaChart" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Pie Chart */}
-                <div className="col-xl-4 col-lg-5">
-                  <div className="card shadow mb-4">
-                    {/* Card Header - Dropdown */}
-                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 className="m-0 font-weight-bold text-primary">
-                        Revenue Sources
-                      </h6>
-                      <div className="dropdown no-arrow">
-                        <a
-                          className="dropdown-toggle"
-                          href="#"
-                          role="button"
-                          id="dropdownMenuLink"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" />
-                        </a>
-                        <div
-                          className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                          aria-labelledby="dropdownMenuLink"
-                        >
-                          <div className="dropdown-header">
-                            Dropdown Header:
-                          </div>
-                          <a className="dropdown-item" href="#">
-                            Action
-                          </a>
-                          <a className="dropdown-item" href="#">
-                            Another action
-                          </a>
-                          <div className="dropdown-divider" />
-                          <a className="dropdown-item" href="#">
-                            Something else here
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Card Body */}
-                    <div className="card-body">
-                      <div className="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart" />
-                      </div>
-                      <div className="mt-4 text-center small">
-                        <span className="mr-2">
-                          <i className="fas fa-circle text-primary" /> Direct
-                        </span>
-                        <span className="mr-2">
-                          <i className="fas fa-circle text-success" /> Social
-                        </span>
-                        <span className="mr-2">
-                          <i className="fas fa-circle text-info" /> Referral
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Content Row */}
+                {/* Content Row */}
               <div className="row">
                 {/* Content Column */}
                 <div className="col-lg-6 mb-4">

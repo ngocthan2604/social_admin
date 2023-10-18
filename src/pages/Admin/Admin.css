@@ -1,3 +1,24 @@
 .user-infor-custom {
   display: block;
 }
+
+.nav-item .nav-link {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.nav-item .nav-link.collapsed .arrow {
+  transform: rotate(0);
+}
+
+.nav-item .nav-link .arrow {
+  transform: rotate(90deg);
+}
+
+.nav-link::after {
+  display: none;
+}
+
+.collapse.show {
+  display: block;
+}

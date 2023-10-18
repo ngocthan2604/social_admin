@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import './styles/sb-admin-2.css'
 import './styles/sb-admin-2.min.css'
 import './App.css';
 import {Route, Routes, useNavigate } from 'react-router-dom';
